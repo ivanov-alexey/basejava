@@ -4,16 +4,19 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    Resume[] storage = new Resume[10_000];
+    private int size = 0;
 
     void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size(), null);
+        size = 0;
     }
 
-    void save(Resume r) {
+    void save(Resume resume) {
         int lastIndex = size();
 
-        storage[lastIndex] = r;
+        storage[lastIndex] = resume;
+        size += 1;
     }
 
     Resume get(String uuid) {
@@ -26,6 +29,7 @@ public class ArrayStorage {
 
         storage[currentResumeIndex] = storage[lastResumeIndex];
         storage[lastResumeIndex] = storage[size()];
+        size -= 1;
     }
 
     /**
@@ -36,15 +40,7 @@ public class ArrayStorage {
     }
 
     int size() {
-        int quantityOfResume = 0;
-
-        for (Resume resume : storage) {
-            if (resume != null) {
-                quantityOfResume += 1;
-            }
-        }
-
-        return quantityOfResume;
+        return size;
     }
 
     int getIndex(String uuid) {
