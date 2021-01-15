@@ -24,19 +24,25 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        if (getIndex(uuid) >= 0) {
+        if (hasUuid(uuid)) {
             return storage[getIndex(uuid)];
-        }
+        } else {
+            System.out.println("ERROR: uuid not found");
 
-        return null;
+            return null;
+        }
     }
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
+        if (hasUuid(uuid)) {
+            int index = getIndex(uuid);
 
-        storage[index] = storage[size - 1];
-        storage[size - 1] = null;
-        size --;
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size --;
+        } else {
+            System.out.println("ERROR: uuid not found");
+        }
     }
 
     /**
@@ -60,5 +66,9 @@ public class ArrayStorage {
         }
 
         return index;
+    }
+
+    private boolean hasUuid(String uuid) {
+        return getIndex(uuid) >= 0;
     }
 }
