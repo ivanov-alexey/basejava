@@ -41,6 +41,16 @@ public class ArrayStorage {
         }
     }
 
+    public void update(Resume resume, Resume newResume) {
+        String uuid = resume.getUuid();
+
+        if (hasUuid(uuid)) {
+            storage[getIndex(uuid)] = newResume;
+        } else {
+            System.out.println("ERROR: uuid not found");
+        }
+    }
+
     public void delete(String uuid) {
         if (hasUuid(uuid)) {
             int index = getIndex(uuid);
