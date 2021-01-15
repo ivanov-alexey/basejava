@@ -17,10 +17,18 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        int lastIndex = size;
+        if (!hasUuid(resume.getUuid())) {
+            if (size < storage.length) {
+                int lastIndex = size;
 
-        storage[lastIndex] = resume;
-        size ++;
+                storage[lastIndex] = resume;
+                size++;
+            } else {
+                System.out.println("ERROR: storage is full");
+            }
+        } else {
+            System.out.println("ERROR: resume is existing");
+        }
     }
 
     public Resume get(String uuid) {
@@ -39,7 +47,7 @@ public class ArrayStorage {
 
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
-            size --;
+            size--;
         } else {
             System.out.println("ERROR: uuid not found");
         }
