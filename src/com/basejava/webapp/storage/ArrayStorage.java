@@ -17,25 +17,28 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (!hasUuid(resume.getUuid())) {
-            if (size < storage.length) {
-                int lastIndex = size;
+        String uuid = resume.getUuid();
+        int index = getIndex(uuid);
 
-                storage[lastIndex] = resume;
+        if (index < 0) {
+            if (size < storage.length) {
+                storage[size] = resume;
                 size++;
             } else {
                 System.out.println("ERROR: storage is full");
             }
         } else {
-            System.out.println("ERROR: resume is existing");
+            System.out.println("ERROR: resume with " + uuid + " is existing");
         }
     }
 
     public Resume get(String uuid) {
-        if (hasUuid(uuid)) {
-            return storage[getIndex(uuid)];
+        int index = getIndex(uuid);
+
+        if (index >= 0) {
+            return storage[index];
         } else {
-            System.out.println("ERROR: uuid not found");
+            System.out.println("ERROR: uuid " + uuid + " not found");
 
             return null;
         }
@@ -43,23 +46,24 @@ public class ArrayStorage {
 
     public void update(Resume resume, Resume newResume) {
         String uuid = resume.getUuid();
+        int index = getIndex(uuid);
 
-        if (hasUuid(uuid)) {
-            storage[getIndex(uuid)] = newResume;
+        if (index >= 0) {
+            storage[index] = newResume;
         } else {
-            System.out.println("ERROR: uuid not found");
+            System.out.println("ERROR: uuid " + uuid + " not found");
         }
     }
 
     public void delete(String uuid) {
-        if (hasUuid(uuid)) {
-            int index = getIndex(uuid);
+        int index = getIndex(uuid);
 
+        if (index >= 0) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("ERROR: uuid not found");
+            System.out.println("ERROR: uuid " + uuid + " not found");
         }
     }
 
@@ -84,9 +88,5 @@ public class ArrayStorage {
         }
 
         return index;
-    }
-
-    private boolean hasUuid(String uuid) {
-        return getIndex(uuid) >= 0;
     }
 }
