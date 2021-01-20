@@ -35,11 +35,12 @@ abstract class AbstractArrayStorage implements Storage {
 
         if (index >= 0) {
             return storage[index];
-        } else {
-            System.out.println("ERROR: uuid " + uuid + " not found");
-
-            return null;
         }
+
+        System.out.println("ERROR: uuid " + uuid + " not found");
+
+        return null;
+
     }
 
     public void update(Resume resume, Resume newResume) {
