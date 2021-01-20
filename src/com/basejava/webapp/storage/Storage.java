@@ -12,7 +12,7 @@ public interface Storage {
 
     Resume get(String uuid);
 
-    void update(Resume resume, Resume newResume);
+    void update(Resume resume);
 
     void delete(String uuid);
 

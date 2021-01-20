@@ -43,12 +43,12 @@ abstract class AbstractArrayStorage implements Storage {
 
     }
 
-    public void update(Resume resume, Resume newResume) {
+    public void update(Resume resume) {
         String uuid = resume.getUuid();
         int index = getIndex(uuid);
 
         if (index >= 0) {
-            storage[index] = newResume;
+            storage[index] = resume;
         } else {
             System.out.println("ERROR: uuid " + uuid + " not found");
         }
