@@ -1,5 +1,8 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.exception.ExistStorageException;
+import com.basejava.webapp.exception.NotExistStorageException;
+import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -23,10 +26,10 @@ abstract class AbstractArrayStorage implements Storage {
                 addElement(resume, index);
                 size++;
             } else {
-                System.out.println("ERROR: storage is full");
+                throw new StorageException("Storage is full", uuid);
             }
         } else {
-            System.out.println("ERROR: resume with " + uuid + " is existing");
+            throw new ExistStorageException(uuid);
         }
     }
 
@@ -36,10 +39,7 @@ abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             return storage[index];
         }
-
-        System.out.println("ERROR: uuid " + uuid + " not found");
-
-        return null;
+        throw new NotExistStorageException(uuid);
 
     }
 
@@ -50,7 +50,7 @@ abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             storage[index] = resume;
         } else {
-            System.out.println("ERROR: uuid " + uuid + " not found");
+            throw new NotExistStorageException(uuid);
         }
     }
 
@@ -62,7 +62,7 @@ abstract class AbstractArrayStorage implements Storage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("ERROR: uuid " + uuid + " not found");
+            throw new NotExistStorageException(uuid);
         }
     }
 
