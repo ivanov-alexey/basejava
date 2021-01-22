@@ -20,7 +20,7 @@ abstract class AbstractArrayStorage implements Storage {
 
         if (index < 0) {
             if (size < STORAGE_LIMIT) {
-                storage[size] = resume;
+                addElement(resume, index);
                 size++;
             } else {
                 System.out.println("ERROR: storage is full");
@@ -58,7 +58,7 @@ abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(uuid);
 
         if (index >= 0) {
-            storage[index] = storage[size - 1];
+            fillDeleted(index);
             storage[size - 1] = null;
             size--;
         } else {
@@ -77,6 +77,9 @@ abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
+    protected abstract void addElement(Resume resume, int index);
+
+    protected abstract void fillDeleted(int index);
 
     protected abstract int getIndex(String uuid);
 }
