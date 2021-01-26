@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public abstract class AbstractArrayStorageTest {
+    public static final int STORAGE_CAPACITY = 10_000;
     private final Storage storage;
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1 = new Resume(UUID_1);
@@ -50,7 +51,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void getStorageOverflow() {
-        for (int i = 3; i < 10_000; i++) {
+        for (int i = 3; i < STORAGE_CAPACITY; i++) {
             storage.save(new Resume());
         }
         storage.save(new Resume());
