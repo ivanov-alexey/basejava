@@ -7,7 +7,7 @@ import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
 
-abstract class AbstractArrayStorage implements Storage {
+abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
